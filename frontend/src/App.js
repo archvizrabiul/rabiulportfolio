@@ -1120,19 +1120,11 @@ function App() {
       <BlogModal post={selectedBlogPost} onClose={() => setSelectedBlogPost(null)} />
       
       <AnimatePresence>
-        {showAdmin && (
+        {showAdminLogin && <AdminLogin />}
+        {showAdmin && isAuthenticated && (
           <AdminPanel onClose={() => setShowAdmin(false)} />
         )}
       </AnimatePresence>
-      
-      <motion.button
-        onClick={() => setShowAdmin(!showAdmin)}
-        className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        ⚙️
-      </motion.button>
     </div>
   );
 }
