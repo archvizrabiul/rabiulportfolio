@@ -933,6 +933,12 @@ function App() {
       <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       <BlogModal post={selectedBlogPost} onClose={() => setSelectedBlogPost(null)} />
       
+      <AnimatePresence>
+        {showAdmin && (
+          <AdminPanel onClose={() => setShowAdmin(false)} />
+        )}
+      </AnimatePresence>
+      
       <motion.button
         onClick={() => setShowAdmin(!showAdmin)}
         className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
@@ -941,12 +947,6 @@ function App() {
       >
         ⚙️
       </motion.button>
-      
-      {showAdmin && (
-        <div className="fixed bottom-16 right-4 bg-gray-800 p-4 rounded-lg shadow-xl border border-gray-700">
-          <p className="text-white text-sm">Admin Panel Coming Soon!</p>
-        </div>
-      )}
     </div>
   );
 }
