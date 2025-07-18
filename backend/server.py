@@ -352,6 +352,17 @@ async def create_contact(contact: Contact):
     result = contacts_collection.insert_one(contact.dict())
     return {"message": "Contact form submitted successfully"}
 
+# Admin authentication endpoints
+@app.post("/api/admin/login")
+async def admin_login(credentials: dict):
+    """Admin login endpoint"""
+    password = credentials.get("password", "")
+    # Simple password check - in production, use proper hashing
+    if password == "archviz2024!" or password == "rabiul-admin-2024":
+        return {"success": True, "message": "Login successful"}
+    else:
+        raise HTTPException(status_code=401, detail="Invalid password")
+
 @app.get("/api/contacts")
 async def get_contacts():
     contacts = list(contacts_collection.find().sort("created_at", -1))
