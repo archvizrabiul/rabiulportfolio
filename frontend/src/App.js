@@ -182,8 +182,8 @@ function App() {
       animate="visible"
     >
       <div className="container mx-auto px-6 py-20">
-        {/* Mobile Layout */}
-        <div className="md:hidden">
+        {/* Mobile Layout - Show only on mobile */}
+        <div className="block md:hidden">
           {/* Profile Picture - Mobile (below menu) */}
           <motion.div 
             className="flex justify-center mb-8"
@@ -261,7 +261,7 @@ function App() {
           </motion.div>
         </div>
 
-        {/* Desktop Layout */}
+        {/* Desktop Layout - Show only on desktop */}
         <div className="hidden md:grid md:grid-cols-2 gap-12 items-center">
           <motion.div 
             className="text-center md:text-left"
