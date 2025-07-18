@@ -19,6 +19,93 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+
+  // Check for admin login URL
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path === '/admin-dashboard-login' || path === '/secure-admin-access') {
+      setShowAdminLogin(true);
+    }
+  }, []);
+
+  // Admin login function
+  const handleAdminLogin = (e) => {
+    e.preventDefault();
+    // Simple password check (in production, this should be handled by backend)
+    if (adminPassword === 'archviz2024!' || adminPassword === 'rabiul-admin-2024') {
+      setIsAuthenticated(true);
+      setShowAdmin(true);
+      setShowAdminLogin(false);
+      setLoginError('');
+      // Update URL without the login path
+      window.history.pushState({}, '', '/');
+    } else {
+      setLoginError('Invalid password. Please try again.');
+      setAdminPassword('');
+    }
+  };
+
+  const AdminLogin = () => (
+    <motion.div
+      className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="bg-gray-900 p-8 rounded-xl border border-gray-700 max-w-md w-full mx-4"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+      >
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold text-white mb-2">Admin Access</h2>
+          <p className="text-gray-400">Enter password to access dashboard</p>
+        </div>
+        
+        <form onSubmit={handleAdminLogin} className="space-y-4">
+          <div>
+            <label className="block text-white mb-2">Password</label>
+            <input
+              type="password"
+              value={adminPassword}
+              onChange={(e) => setAdminPassword(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+              placeholder="Enter admin password"
+              required
+            />
+          </div>
+          
+          {loginError && (
+            <div className="text-red-400 text-sm">{loginError}</div>
+          )}
+          
+          <motion.button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Access Dashboard
+          </motion.button>
+        </form>
+        
+        <button
+          onClick={() => {
+            setShowAdminLogin(false);
+            window.history.pushState({}, '', '/');
+          }}
+          className="w-full mt-4 text-gray-400 hover:text-white transition-colors"
+        >
+          Back to Website
+        </button>
+      </motion.div>
+    </motion.div>
+  );
 
   useEffect(() => {
     fetchData();
