@@ -181,80 +181,162 @@ function App() {
       initial="hidden"
       animate="visible"
     >
-      <div className="container mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
-        <motion.div 
-          className="text-center md:text-left"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-        >
-          <motion.h1 
-            className="text-5xl md:text-7xl font-bold text-white mb-6"
+      <div className="container mx-auto px-6 py-20">
+        {/* Mobile Layout */}
+        <div className="md:hidden">
+          {/* Profile Picture - Mobile (below menu) */}
+          <motion.div 
+            className="flex justify-center mb-8"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <motion.div 
+              className="w-64 h-64 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 p-2"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img 
+                src={settings.profile_image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"} 
+                alt="Profile" 
+                className="w-full h-full object-cover rounded-full"
+              />
+            </motion.div>
+          </motion.div>
+          
+          {/* Content - Mobile */}
+          <motion.div 
+            className="text-center"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            {settings.name || 'Rabiul Hasan'}
-          </motion.h1>
-          <motion.p 
-            className="text-xl md:text-2xl text-gray-300 mb-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
-            {settings.title || 'Architectural Visualizer | AI Enthusiast'}
-          </motion.p>
-          <motion.p 
-            className="text-gray-400 mb-8 max-w-lg"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
-            Welcome to my creative space where architecture meets artistry and innovation.
-          </motion.p>
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-          >
-            <motion.button
-              onClick={() => setActiveSection('contact')}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <motion.h1 
+              className="text-4xl font-bold text-white mb-4"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
             >
-              Contact Me
-            </motion.button>
-            <motion.button
-              onClick={() => setActiveSection('portfolio')}
-              className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-gray-900 transition-colors text-lg font-semibold"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              {settings.name || 'Rabiul Hasan'}
+            </motion.h1>
+            <motion.p 
+              className="text-lg text-gray-300 mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
             >
-              View My Work ↓
-            </motion.button>
+              {settings.title || 'Architectural Visualizer | AI Enthusiast'}
+            </motion.p>
+            <motion.p 
+              className="text-gray-400 mb-8 max-w-lg mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+            >
+              Welcome to my creative space where architecture meets artistry and innovation.
+            </motion.p>
+            <motion.div 
+              className="flex flex-col gap-4"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+            >
+              <motion.button
+                onClick={() => window.open(settings.cv_url, '_blank')}
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Download CV
+              </motion.button>
+              <motion.button
+                onClick={() => setActiveSection('portfolio')}
+                className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-gray-900 transition-colors text-lg font-semibold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                View My Work ↓
+              </motion.button>
+            </motion.div>
           </motion.div>
-        </motion.div>
-        
-        <motion.div 
-          className="flex justify-center"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-        >
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden md:grid md:grid-cols-2 gap-12 items-center">
           <motion.div 
-            className="w-80 h-80 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 p-2"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
+            className="text-center md:text-left"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <img 
-              src={settings.profile_image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"} 
-              alt="Profile" 
-              className="w-full h-full object-cover rounded-full"
-            />
+            <motion.h1 
+              className="text-5xl md:text-7xl font-bold text-white mb-6"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            >
+              {settings.name || 'Rabiul Hasan'}
+            </motion.h1>
+            <motion.p 
+              className="text-xl md:text-2xl text-gray-300 mb-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+            >
+              {settings.title || 'Architectural Visualizer | AI Enthusiast'}
+            </motion.p>
+            <motion.p 
+              className="text-gray-400 mb-8 max-w-lg"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+            >
+              Welcome to my creative space where architecture meets artistry and innovation.
+            </motion.p>
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+            >
+              <motion.button
+                onClick={() => window.open(settings.cv_url, '_blank')}
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Download CV
+              </motion.button>
+              <motion.button
+                onClick={() => setActiveSection('portfolio')}
+                className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-gray-900 transition-colors text-lg font-semibold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                View My Work ↓
+              </motion.button>
+            </motion.div>
           </motion.div>
-        </motion.div>
+          
+          <motion.div 
+            className="flex justify-center"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <motion.div 
+              className="w-80 h-80 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 p-2"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img 
+                src={settings.profile_image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"} 
+                alt="Profile" 
+                className="w-full h-full object-cover rounded-full"
+              />
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </motion.section>
   );
